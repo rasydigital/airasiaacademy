@@ -1,8 +1,24 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
+import seaborn as sns
+from sklearn.naive_bayes import GaussianNB
 
-st.header("Advertising Sale")
-option = st.sidebar.selectbox(
-    'Select Option',
-     ['line chart','map','T n C','Long Process'])
+st.write("# Sale Prediction App") 
+st.write("This app to show the prediction of the Sales for Advertrising!")
+
+st.sidebar.header('User Input Parameters') 
+
+def user_input_features():
+    sepal_length = st.sidebar.slider('Sepal length', 4.3, 7.9, 5.4) #slider min, max ,def
+    sepal_width = st.sidebar.slider('Sepal width', 2.0, 4.4, 3.4)
+    petal_length = st.sidebar.slider('Petal length', 1.0, 6.9, 1.3)
+    petal_width = st.sidebar.slider('Petal width', 0.1, 2.5, 0.2)
+    data = {'sepal_length': sepal_length, #key:values - Sepal_length - is the keyword
+            'sepal_width': sepal_width,
+            'petal_length': petal_length,
+            'petal_width': petal_width}
+    features = pd.DataFrame(data, index=[0])
+    return features
+
+df = user_input_features() 
+
