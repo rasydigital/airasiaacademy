@@ -2,9 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.linear_model import LinearRegression
 
-#st.write("# Simple Advertising Prediction App")
+st.write("# Simple Advertising Prediction App")
 st.write("This app predicts the **Sales** Advertising!")
 
 st.sidebar.header('User Input Parameters') 
@@ -26,11 +25,8 @@ st.subheader('User Input parameters')
 st.write(df)
 
 
-
-prediction = modellr.predict(df) 
-
-modelrr = LinearRegression()
-modelrr.fit(X, Y)
+loaded_model = pickle.load(open("Advertising.h5", "rb")) #rb: read binary
+prediction = loaded_model.predict(df)
 
 st.subheader('Prediction')
 st.write(prediction)
