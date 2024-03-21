@@ -3,71 +3,47 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-st.write("# Simple Iris Flower Prediction App") #klu kt gc panggil asprint
-st.write("This app predicts the **SSales** Advertising!")
+import
+st.write("# Advertising Sale Prediction")
+st.write("This app predicts the **Sales** Advertising!")
 
 st.sidebar.header('User Input Parameters') 
 
+def user_input_features():
+    TV = st.sidebar.slider('TV', 4.3, 7.9, 5.4) #slider min, max ,def
+    Radio = st.sidebar.slider('Radio', 2.0, 4.4, 3.4)
+    Newspaper = st.sidebar.slider('Newspaper', 1.0, 6.9, 1.3)
+    
+    data = {'TV': TV, 
+            'Radio': Radio,
+            'Newspaper': Newspaper,
+            
+    features = pd.DataFrame(data, index=[0])
+    return features
 
-from sklearn.linear_model import LinearRegression
+df = user_input_features()
+
+st.subheader('User Input parameters')
+st.write(df)
+
+data = sns.load_dataset('Advertising')
+X = data.drop(['sales'],axis=1)
+Y = data.Sales.copy() 
+
 modellr = LinearRegression()
-modellr.fit(X_train, y_train)
-y_pred = modellr.predict(X_test)
+modellr.fit(X, y)
 
-y_pred
+prediction = modellr.predict(df) 
+prediction_proba = modellr.predict_proba(df) 
 
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+st.subheader('Class labels and their corresponding index number')
+st.write(Y.unique())
 
+st.subheader('Prediction')
+st.write(prediction)
 
-print("Mean absolute error: {} ".format(mean_absolute_error(y_test, y_pred)))
+st.subheader('Prediction Probability')
+st.write(prediction_proba)
 
-print("Mean squared error: {} ".format(mean_squared_error(y_test, y_pred)))
-
-print("Root mean squared error: {} ".format(mean_squared_error(y_test, y_pred)**0.5)) #kite x de so use this
-
-print('Variance score: {} '.format(r2_score(y_test,y_pred)))
-
-df_prediction = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
-df_prediction
-
-tempActual = pd.DataFrame()
-tempActual['Actual'] = df_prediction['Actual'].copy()
-
-tempPrediction = pd.DataFrame()
-tempPrediction['Predicted'] = df_prediction['Predicted'].copy()
-
-df_prediction['Actual'] = scalerSales.inverse_transform(tempActual)
-df_prediction['Predicted'] = scalerSales.inverse_transform(tempPrediction)
-df_prediction
-
-tempActual = pd.DataFrame()
-tempActual['Actual'] = df_prediction['Actual'].copy()
-
-tempPrediction = pd.DataFrame()
-tempPrediction['Predicted'] = df_prediction['Predicted'].copy()
-
-df_prediction['Actual'] = scalerSales.inverse_transform(tempActual)
-df_prediction['Predicted'] = scalerSales.inverse_transform(tempPrediction)
-df_prediction
-
-import matplotlib.pyplot as plt
-
-df_prediction.plot(kind="bar", figsize=(30,10))
-
-plt.title('Sales Prediction - Linear Regression')
-plt.xlabel('Index')
-plt.ylabel('Sales')
-
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
-
-# The mean absolute error
-print("Mean absolute error: {} ".format(mean_absolute_error(df_prediction['Actual'], df_prediction['Predicted'])))
-
-# The mean squared error
-print("Mean squared error: {} ".format(mean_squared_error(df_prediction['Actual'], df_prediction['Predicted'])))
-
-# Root mean squared error
-print("Root mean squared error: {} ".format(mean_squared_error(df_prediction['Actual'], df_prediction['Predicted'])**0.5))
-
-# Explained variance score: 1 is perfect prediction
-print('Variance score: {} '.format(r2_score(df_prediction['Actual'], df_prediction['Predicted'])))
+  
+     
