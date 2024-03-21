@@ -28,8 +28,8 @@ st.write(df)
 
 prediction = modellr.predict(df) 
 
-import pickle
-pickle.dump(modellr, open("Advertising.h5", "wb")) 
+modelrr = LinearRegression()
+modelrr.fit(X, Y)
 
 st.subheader('Prediction')
 st.write(prediction)
