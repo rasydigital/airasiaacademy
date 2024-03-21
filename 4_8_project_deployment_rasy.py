@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import LinearRegression
+from sklearn.linear_model import LinearRegression
 st.write("# Advertising Sale Prediction")
 st.write("This app predicts the **Sales** Advertising!")
 
