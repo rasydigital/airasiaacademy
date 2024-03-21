@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import streamlit as st
+import pickle
 
 st.write("# Simple Advertising Prediction App")
 st.write("This app predicts the **Sales** Advertising!")
