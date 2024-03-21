@@ -9,14 +9,14 @@ st.write("This app predicts the **Sales** Advertising!")
 st.sidebar.header('User Input Parameters') 
 
 def user_input_features():
-    TV = st.sidebar.slider('TV', 4.3, 7.9, 5.4) #slider min, max ,def
+    TV = st.sidebar.slider('TV', 4.3, 7.9, 5.4) 
     Radio = st.sidebar.slider('Radio', 2.0, 4.4, 3.4)
     Newspaper = st.sidebar.slider('Newspaper', 1.0, 6.9, 1.3)
     
     data = {'TV': TV, 
             'Radio': Radio,
-            'Newspaper': Newspaper,
-            
+            'Newspaper': Newspaper}
+    features = pd.DataFrame(data, index=[0])  
     return features
 
 df = user_input_features()
@@ -24,24 +24,16 @@ df = user_input_features()
 st.subheader('User Input parameters')
 st.write(df)
 
-data = sns.load_dataset('Advertising')
-X = data.drop(['sales'],axis=1)
-Y = data.Sales.copy() 
 
-modellr = LinearRegression()
-modellr.fit(X, y)
 
 prediction = modellr.predict(df) 
-prediction_proba = modellr.predict_proba(df) 
 
-st.subheader('Class labels and their corresponding index number')
-st.write(Y.unique())
+import pickle
+pickle.dump(modellr, open("Advertising.h5", "wb")) 
 
 st.subheader('Prediction')
 st.write(prediction)
 
-st.subheader('Prediction Probability')
-st.write(prediction_proba)
 
   
      
